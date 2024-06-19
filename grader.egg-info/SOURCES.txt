@@ -1,0 +1,5 @@
+setup.py
+grader.egg-info/PKG-INFO
+grader.egg-info/SOURCES.txt
+grader.egg-info/dependency_links.txt
+grader.egg-info/top_level.txt

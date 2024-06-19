@@ -1,6 +1,6 @@
 import numpy as np
 
-def check_homework(user_final_state):
+def check_homework_1(user_final_state):
     # Define the initial state |1⟩
     initial_state = np.array([0, 1])
     

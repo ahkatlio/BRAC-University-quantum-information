@@ -1,8 +1,13 @@
+#_____________________________Import Libraries______________________#
 import numpy as np
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import Aer
 from qiskit.quantum_info import Statevector
 import base64
+from sympy import Matrix
+from sympy.physics.quantum import TensorProduct as tensor_product
+
+#_____________________________Functions_____________________________#
 
 def _obscure_logic(a, b):
     return np.dot(a, np.linalg.inv(np.linalg.inv(b)))
@@ -12,6 +17,8 @@ def _encode_message(msg):
 
 def _decode_message(encoded_msg):
     return base64.b64decode(encoded_msg).decode()
+
+#_____________________________Homework Grader________________________#
 
 def check_homework_1(user_final_state):
     a = np.array([0, 1])
@@ -65,3 +72,39 @@ def check_homework_3(student_circuit):
         return "Correct! Your final state is |1⟩."
     else:
         return "Incorrect. The final state is not |1⟩. Please try again."
+
+def grade_homework_5(student_responses):
+    CX = Matrix([[1, 0, 0, 0],
+                 [0, 1, 0, 0],
+                 [0, 0, 0, 1],
+                 [0, 0, 1, 0]])
+
+    qubit_0 = Matrix([1, 0])  
+    qubit_1 = Matrix([0, 1])  
+    
+    initial_states = {
+        '|11⟩': tensor_product(qubit_1, qubit_1),
+        '|01⟩': tensor_product(qubit_0, qubit_1),
+        '|00⟩': tensor_product(qubit_0, qubit_0)
+    }
+    
+    expected_results = {
+        '|11⟩': '10',
+        '|01⟩': '01',
+        '|00⟩': '00'
+    }
+    
+    grades = {}
+    for state_label, initial_state in initial_states.items():
+        result_state = CX * initial_state
+        index = result_state.tolist().index([1])
+        binary_state = format(index, '02b')
+        grades[state_label] = ('Correct' if binary_state == expected_results[state_label] else 'Incorrect')
+    
+    for state_label, student_answer in student_responses.items():
+        if grades[state_label] == 'Correct' and student_answer == expected_results[state_label]:
+            grades[state_label] = 'Correct'
+        else:
+            grades[state_label] = 'Incorrect'
+    
+    return grades

@@ -138,3 +138,16 @@ def grade_homework_7_matrix(final_state):
         return "Matrix Calculation Part: Correct!"
     else:
         return "Matrix Calculation Part: Incorrect. The expected output is |01⟩."
+
+def grade_homework_8(student_circuit):
+    simulator = Aer.get_backend('statevector_simulator')
+    transpiled_circuit = transpile(student_circuit, simulator)
+    result = simulator.run(transpiled_circuit).result()
+    student_statevector = result.get_statevector()
+    
+    expected_statevector = Statevector([0.88145203-0.10567166j, 0.35765803-0.28975256j])
+    
+    if np.allclose(student_statevector, expected_statevector.data):
+        return "Correct! Your circuit correctly implements the specified rotations."
+    else:
+        return "Incorrect. Please check your rotations and try again."

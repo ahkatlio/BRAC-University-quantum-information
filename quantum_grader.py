@@ -108,3 +108,14 @@ def grade_homework_5(student_responses):
             grades[state_label] = 'Incorrect'
     
     return grades
+
+def grade_homework_6(student_circuit):
+    simulator = Aer.get_backend('statevector_simulator')
+    transpiled_circuit = transpile(student_circuit, simulator)
+    result = simulator.run(transpiled_circuit).result()
+    statevector = result.get_statevector()
+    expected_state = Statevector.from_label('01')
+    if statevector == expected_state:
+        return "Correct! Your circuit correctly implements the CX gate for the |11⟩ state."
+    else:
+        return "Incorrect. The expected output is |10⟩. Please review your circuit."

@@ -51,3 +51,17 @@ def check_homework_2(student_circuit):
         return "Correct! Your final state matches the expected state."
     else:
         return "Incorrect. Please try again."
+    
+def check_homework_3(student_circuit):
+    backend = Aer.get_backend('statevector_simulator')
+    
+    expected_final_state = Statevector.from_label('1')
+    
+    transpiled_student_circuit = transpile(student_circuit, backend)
+    
+    job = backend.run(transpiled_student_circuit)
+    student_final_state = job.result().get_statevector()
+    if np.allclose(student_final_state, expected_final_state):
+        return "Correct! Your final state is |1⟩."
+    else:
+        return "Incorrect. The final state is not |1⟩. Please try again."

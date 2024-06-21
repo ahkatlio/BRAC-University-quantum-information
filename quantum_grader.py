@@ -13,6 +13,9 @@ def check_homework_1(user_final_state):
     
     # Check if the user's final state matches the expected final state
     if np.array_equal(user_final_state, expected_final_state):
-        return "Correct! Your final state is the expected state |0⟩."
+        return "Correct! Your final state is the expected state |0⟩. 🔥❤️👍"
     else:
-        return "Incorrect. Please try again."
+        return "Incorrect. Please try again. ⚠️"
+
+
+        

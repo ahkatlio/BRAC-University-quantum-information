@@ -151,3 +151,17 @@ def grade_homework_8(student_circuit):
         return "Correct! Your circuit correctly implements the specified rotations."
     else:
         return "Incorrect. Please check your rotations and try again."
+    
+def grade_homework_9(student_circuit):
+    simulator = Aer.get_backend('statevector_simulator')
+    transpiled_circuit = transpile(student_circuit, simulator)
+    result = simulator.run(transpiled_circuit).result()
+    student_statevector = result.get_statevector()
+    
+    
+    expected_statevector = Statevector([-1.8369702e-16-1.j, -0.0000000e+00+0.j])
+    
+    if np.allclose(student_statevector, expected_statevector.data):
+        return "Correct! Your circuit correctly implements the X followed by Y gate."
+    else:
+        return "Incorrect. Please check your circuit and try again."

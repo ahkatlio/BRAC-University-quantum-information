@@ -166,8 +166,8 @@ def grade_homework_9(student_circuit):
     else:
         return "Incorrect. Please check your circuit and try again."
     
-    def oracle_box(qc):
-        positions_of_ones = [1, 3, 4, 6, 9, 10, 11, 12, 14, 17, 18, 20, 21, 25, 28, 30, 31, 33, 36, 38]
-        for pos in positions_of_ones:
-            qc.cx(pos, 40)
-        qc.barrier()
+def oracle_box(qc):
+    positions_of_ones = [1, 3, 4, 6, 9, 10, 11, 12, 14, 17, 18, 20, 21, 25, 28, 30, 31, 33, 36, 38]
+    for pos in positions_of_ones:
+        qc.cx(pos, 40)
+    qc.barrier()
